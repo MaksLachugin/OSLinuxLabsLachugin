@@ -1,0 +1,45 @@
+#!/bin/bash
+
+myprinter() {
+# доделать проверку ../
+# доделать проверку ../*
+str=$1
+IFS='/'
+arr=($str)
+unset IFS
+x=${#arr[*]}
+z=${arr[$(( $x - 1 ))]}
+t="${str: -1}"
+c="${str::-1}"
+echo $c
+echo $t
+if [ $t != '/' ]
+then
+echo $z
+else
+echo '*'
+fi
+}
+files() {
+if [ -n "$2" ]
+	then
+	n=$2
+	else
+	n=1
+fi
+for file in $1/*
+do
+	#echo $file
+	temp=$( myprinter $file )
+	echo "$n)$temp"
+	if [ -d "$file" ]
+	then 
+	n=$(( $n + 1 ))
+	files "$file" $n
+	n=$(( $n - 1 ))
+	fi
+done
+}
+
+myprinter $1
+#files $1 

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+arr=("$@")
+i=0  #index1
+n=${#arr[*]}  #size
+n=$(( $n -1 ))
+while [ $i -lt $n  ]
+do
+	j=0
+	while [ $j -lt $(( $n - $i )) ]
+	do
+		j1=${arr[$j]}
+		j2=${arr[$(( j + 1 ))]}
+		if [ $j1 \> $j2 ]
+		then
+			temp=${arr[$j]}
+			arr[$j]=${arr[$(( j + 1 ))]}
+			arr[$(( j + 1 ))]=$temp
+		fi
+		j=$(( $j + 1 ))
+	done
+	i=$(( $i + 1 ))
+done
+
+echo ${arr[*]}

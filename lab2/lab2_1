@@ -1,0 +1,7 @@
+#!/bin/bash
+
+IFS=:
+for file in $PATH
+do
+echo "$file"
+done

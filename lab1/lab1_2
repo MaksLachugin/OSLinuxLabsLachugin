@@ -1,0 +1,28 @@
+#!/bin/bash
+
+while getopts "t:n:" opt
+do
+case $opt in
+	n)
+		n=$OPTARG
+		;;
+	t)
+		t=$OPTARG
+		;;
+	\?) 
+		break
+		;;
+	esac
+done
+
+shift $(( $OPTIND -1 ))
+
+
+i=1
+echo $1
+while [ $i -lt $n ]
+do
+	sleep $t
+	echo $1
+	i=$(( $i + 1 ))
+done
