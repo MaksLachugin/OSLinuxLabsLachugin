@@ -1,0 +1,9 @@
+#!/bin/bash
+trap "echo '$1 уже существует'" ERR
+if [ -e $1 ]
+then
+# убивает без возможности обработки kill ERR $$ 
+kill ERR 
+fi
+touch $1
+
