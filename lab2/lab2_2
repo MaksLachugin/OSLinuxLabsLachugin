@@ -1,25 +1,21 @@
 #!/bin/bash
 
 myprinter() {
-# доделать проверку ../
-# доделать проверку ../*
 str=$1
+[[ $str == *\* ]] && str="${str::-1}"
+if [[ "$str" == */ ]]
+then 
+echo '*'
+else
 IFS='/'
 arr=($str)
 unset IFS
 x=${#arr[*]}
 z=${arr[$(( $x - 1 ))]}
-t="${str: -1}"
-c="${str::-1}"
-echo $c
-echo $t
-if [ $t != '/' ]
-then
 echo $z
-else
-echo '*'
 fi
 }
+
 files() {
 if [ -n "$2" ]
 	then
@@ -40,6 +36,5 @@ do
 	fi
 done
 }
+files $1 
 
-myprinter $1
-#files $1 
