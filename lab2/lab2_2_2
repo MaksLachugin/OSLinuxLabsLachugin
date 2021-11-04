@@ -1,0 +1,23 @@
+#!/bin/bash
+
+files() {
+if [ -n "$2" ]
+	then
+	n=$2
+	else
+	n=1
+fi
+for file in $1/*
+do
+	
+	echo "$n)$file"
+	if [ -d "$file" ]
+	then 
+	n=$(( $n + 1 ))
+	files "$file" $n
+	n=$(( $n - 1 ))
+	fi
+done
+}
+files $1 
+
