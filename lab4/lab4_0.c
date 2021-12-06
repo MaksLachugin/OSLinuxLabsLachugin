@@ -1,33 +1,23 @@
 #include <getopt.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 int main(int argc, char *argv[])
 {
+	int timeout;
+	int number;
 	struct option longopts[] =
 	{
 		{
-			.name = "advanced",
-			.has_arg = no_argument,
-			.flag = NULL,
-			.val = 'a'
-		},
-		{
-			.name = "base address",
+			.name = "number",
 			.has_arg = required_argument,
 			.flag = NULL,
-			.val = 'b'
+			.val = 'n'
 		},
 		{
-			.name = "cursor",
+			.name = "timeout",
 			.has_arg = required_argument,
 			.flag = NULL,
-			.val = 'c'
-		},
-		{
-			.name = "debug",
-			.has_arg = no_argument,
-			.flag = NULL,
-			.val = 'd'
+			.val = 't'
 		},
 		{
 		}
@@ -41,26 +31,40 @@ int main(int argc, char *argv[])
 		}
 		switch (c)
 		{
-			case 'a':
-				printf("option 'a'\n");
-				break;
-			case 'b':
-				printf("option 'b' with '%s'\n", optarg);
-				break;
-			case 'c':
+			
+			case 'n':
 				if (optarg)
 				{
-					printf("option 'c' with '%s'\n", optarg);
+					printf("option 'n' with '%s'\n", optarg);
+					number = atoi(optarg);
 				}
 				else
 				{
-					printf("option 'c' witout argument\n");
+					printf("option 'n' witout argument\n");
 				}
 				break;
-			case 'd':
+			case 't':
+				if (optarg)
+				{
+					printf("option 't' with '%s'\n", optarg);
+					timeout = atoi(optarg);
+				}
+				else
+				{
+					timeout = 1;
+					printf("option 't' witout argument\n");
+				}
+				break;
+			case '-':
 				printf("option 'd'\n");
+				break;
+			default:
+				char temp = c + '0'; 
+				printf("%s \n", temp);
+				printf(optarg);
 				break;
 		}
 	}
+	printf("-- n = %d -- t = %d --\n", number, timeout);
 	return 0;
 }
