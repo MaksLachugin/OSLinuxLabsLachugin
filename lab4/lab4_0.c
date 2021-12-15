@@ -1,6 +1,7 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 int main(int argc, char *argv[])
 {
 	int timeout;
@@ -24,7 +25,7 @@ int main(int argc, char *argv[])
 	};
 	while (1)
 	{
-		int c = getopt_long(argc, argv, "ab:c::d", longopts, NULL);
+		int c = getopt_long(argc, argv, "n:t:", longopts, NULL);
 		if (c == -1)
 		{
 			break;
@@ -65,6 +66,13 @@ int main(int argc, char *argv[])
 				break;
 		}
 	}
-	printf("-- n = %d -- t = %d --\n", number, timeout);
+	char str[] = "texter";
+	int t=0;
+	while (t<number)
+	{
+		printf("%d %s\n", t, argv[argc-1]);
+		sleep(timeout);
+		t = t+1;
+	}
 	return 0;
 }
