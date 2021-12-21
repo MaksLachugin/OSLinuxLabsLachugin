@@ -32,8 +32,10 @@ int main(int argc, char* argv[])
         case 't':
             if (optarg) {
                 t = atoi(optarg);
+		printf("t");
             }
             else {
+		printf("---");
                 t = 1;
             }
             break;
