@@ -41,10 +41,11 @@ int main(int argc, char* argv[])
         printf("usage: prntxt -n|--number <N> [-t|--timeout [<T>]] -- <TEXT>\n");
     }
     else {
-        int i = 0;
+        int i = 1;
+	printf("%s\n", argv[optind]);
         while (i < n) {
-            printf("%s\n", argv[optind]);
-            sleep(t);
+                sleep(t);
+		printf("%s\n", argv[optind]);
             i = i + 1;
         }
     }
