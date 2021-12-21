@@ -8,11 +8,11 @@ int main (int argc, char *argv[])
 {
 	int n = 0;
 	double t = 0;
-	char inp[] = "n:t::";
+	char inp[] = "n:t:";
 	struct option longopts[] =
 	{
 		{ "number", required_argument, NULL, 'n'},
-		{ "timeout", optional_argument, NULL, 't'},
+		{ "timeout", required_argument, NULL, 't'},
 		{}
 	};
 	while(1)
@@ -28,6 +28,7 @@ int main (int argc, char *argv[])
 				n=atoi(optarg);
 				break;
 			case 't':
+				printf(optarg);
 				if (optarg)
 				{
 					t=atoi(optarg);

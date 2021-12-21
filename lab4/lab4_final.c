@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
             .flag = NULL,
             .val = 'n' },
         {.name = "timeout",
-            .has_arg = optional_argument,
+            .has_arg = required_argument,
             .flag = NULL,
             .val = 't' },
         {}
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
             break;
         case 't':
 	    t = 1;
-            if (optarg) {
+      	if (optarg && strcmp(optarg, "--") != 0) {
                 t = atoi(optarg);
             }
             break;
