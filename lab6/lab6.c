@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 	return 0;
         }
         pid_t child = wait(&code);
-        printf("child process code = %n", code);
+        printf("child process code = %d \n", code);
         	
     return 0;
 }
