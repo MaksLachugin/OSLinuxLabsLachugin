@@ -8,9 +8,9 @@
 #include <sys/signalfd.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <poll.h> // poll
-#include <string.h> // strsignal
-#include <fcntl.h> // open
+#include <poll.h>
+#include <string.h>
+#include <fcntl.h>
 int main(int argc, char* argv[])
 {
     char* file = "reqests";
@@ -45,12 +45,10 @@ int main(int argc, char* argv[])
                     break;
                 }
                 else if (siginfo.ssi_signo == SIGUSR1) {
-                    printf("CUSTOM SIGNAL= %s\n",
-                        strsignal(siginfo.ssi_signo));
+                    printf("CUSTOM SIGNAL= %s\n", strsignal(siginfo.ssi_signo));
                 }
             }
-            if ((pfd[1].revents & POLLIN) != 0) // именнованный канал
-            {
+            if ((pfd[1].revents & POLLIN) != 0) {
                 char buf[16];
                 int n = read(fd, buf, sizeof(buf));
                 if (n != 0) {
@@ -58,11 +56,11 @@ int main(int argc, char* argv[])
                 }
             }
         }
-        kill(0, SIGTERM);
-        pid_t child = wait(&code);
-        printf("child process code = %d \n", code);
+        kill(pid, SIGTERM);
         close(fd);
         unlink(file);
     }
+    pid_t child = wait(&code);
+    printf("\nChild process code = %d \n", code);
     return 0;
 }
