@@ -11,10 +11,9 @@
 #include <poll.h>
 #include <string.h>
 #include <fcntl.h>
-int main(int argc, char* argv[])
+int main()
 {
     char* file = "reqests";
-    int code = 0;
     sigset_t sig;
     sigemptyset(&sig);
     sigaddset(&sig, SIGINT);
@@ -28,7 +27,7 @@ int main(int argc, char* argv[])
             kill(parent, SIGUSR1);
         }
     }
-    else if (pid > 0) {
+    else {
         mkfifo(file, 0666);
         int fd = open(file, O_RDONLY | O_NONBLOCK);
         int sigfd = signalfd(-1, &sig, 0);
@@ -45,7 +44,7 @@ int main(int argc, char* argv[])
                     break;
                 }
                 else if (siginfo.ssi_signo == SIGUSR1) {
-                    printf("CUSTOM SIGNAL= %s\n", strsignal(siginfo.ssi_signo));
+                    printf("Child signal = %s\n", strsignal(siginfo.ssi_signo));
                 }
             }
             if ((pfd[1].revents & POLLIN) != 0) {
@@ -60,7 +59,8 @@ int main(int argc, char* argv[])
         close(fd);
         unlink(file);
     }
+    int code;
     pid_t child = wait(&code);
-    printf("\nChild process code = %d \n", code);
+    printf("\nChild %d is done with code %d \n", child, code);
     return 0;
 }
