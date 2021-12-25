@@ -58,13 +58,11 @@ int main(int argc, char* argv[])
                 }
             }
         }
-	close(fd);
-        unlink(file);
-	kill(0, SIGTERM);
-	return 0;
-        }
+        kill(0, SIGTERM);
         pid_t child = wait(&code);
         printf("child process code = %d \n", code);
-        	
+        close(fd);
+        unlink(file);
+    }
     return 0;
 }
