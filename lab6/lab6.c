@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <sys/signalfd.h>
@@ -57,11 +58,13 @@ int main(int argc, char* argv[])
                 }
             }
         }
-        kill(0, SIGTERM);
+	close(fd);
+        unlink(file);
+	kill(0, SIGTERM);
+	return 0;
+        }
         pid_t child = wait(&code);
         printf("child process code = %n", code);
-        close(fd);
-        unlink(file);
-    }
+        	
     return 0;
 }
